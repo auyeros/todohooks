@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useLocalStorageState } from "./useLocalStorageState";
 import { v4 as uuidv4 } from "uuid";
 
 export default (initialTodos) => {
-    const [todos, setTodos] = useState(initialTodos);
+    const [todos, setTodos] = useLocalStorageState("todos", initialTodos);
 
     return {
         todos,
@@ -15,6 +16,7 @@ export default (initialTodos) => {
         removeTodo: (todoId) => {
             //filter out removed todo
             const updatedTodos = todos.filter((todo) => todo.id !== todoId);
+            //call setTodos with new todos array
             setTodos(updatedTodos);
         },
         toggleTodo: (todoId) => {
